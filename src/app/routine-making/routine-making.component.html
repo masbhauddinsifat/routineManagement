@@ -1,0 +1,72 @@
+<div class="container">
+    <h1>Welcome to Routine making page</h1>
+
+    <div class="row">
+        <div class="col-md-8">
+            <div *ngIf="isTeacherBusy || isClassBusy">
+                <p *ngIf="isTeacherBusy" class="alert alert-warning"> Teacher is busy in another class</p>
+                <p *ngIf="isClassBusy" class="alert alert-warning"> Class is busy in with another teacher</p>
+            </div>
+
+            <form #routine=ngForm>
+                <p>{{ routine.value|json}}</p>
+        
+                <div class="form-group">
+                    <label for="class">Class</label>
+                    <select class="form-control" id="class"  name="class" ngModel>
+                        <option *ngFor="let class of classes" [value]="class">{{class}}</option>
+                    </select>
+                </div>
+        
+                <div class="form-group">
+                    <label for="teacher">Teacher</label>
+                    <select class="form-control" id="teacher"  name="teacher" ngModel>
+                        <option *ngFor="let list of teacherList" [value]="list.name">{{list.name}}</option>
+                    </select>
+                </div>
+        
+                <!-- <div class="form-group">
+                    <label for="subject">Subject</label>
+                    <select class="form-control" id="subject"  name="subject" ngModel>
+                        <option *ngFor="let list of teacherList" [value]="list.subject">{{list.subject}}</option>
+                    </select>
+                </div> -->
+        
+                <div class="form-row">
+                    <div class="form-group col-md-6">
+                        <label for="startTime">Start Time</label>
+                        <input type="time" class="form-control" id="startTime" placeholder="Start Time" name="startTime" 
+                            #temp (change)='doSomething(temp)' ngModel>
+                    </div>
+                    <div class="form-group col-md-6">
+                        <label for="endTime">End Time</label>
+                        <input type="text" class="form-control" id="endTime" placeholder="End Time" name="endTime" readonly 
+                        [(ngModel)]='endTime'>
+                    </div>
+                </div>
+                <button type="submit" class="btn btn-primary" (click)="add(routine.value)">Add</button> 
+            </form>
+        </div>
+
+        <div class="col-md-4">
+            <p>There are total {{totalClass}} class in a Day</p>
+            <p>{{totalClass - loadClass.length}} class remain to add</p>
+            <ul>
+                <li *ngFor="let list of teacherList">{{list.name}} is busy in
+                    <ol>
+                        <!-- <ol>{{list.totalAssign|json}}</ol> -->
+                        <div *ngFor="let item of list.totalAssign">
+                            <ul>
+                                <li> class {{item.class}} at {{item.time}}</li>
+                            </ul>
+                        </div>
+                    </ol>
+                </li>
+                
+            </ul>
+            <!-- <p>{{loadClass|json}}</p> -->
+        </div>
+    </div>
+    
+    
+</div>

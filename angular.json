@@ -119,6 +119,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "schoolManagement"
+    }
+  },
+  "defaultProject": "schoolManagement",
+  "cli": {
+    "analytics": "5bf014ab-7e36-4ac4-b95a-a8b5f9ef71f3"
+  }
 }
